@@ -5,8 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LatexEditor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="LatexEditor" Height="550" Width="750">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            
+        </StackPanel>
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+        <Border x:Name="CanvasBorder" BorderBrush="Black" Grid.Column="2" Width="640" Height="480" BorderThickness="1">
+        <Canvas Width="640" Height="480" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                x:Name="MainCanvas" MouseLeftButtonDown="MainCanvas_LeftButtonDown"
+                Background="Transparent" Opacity="1" ForceCursor="True" Cursor="Pen" Margin="10,10,10,10">
+        </Canvas>
+        </Border>
     </Grid>
 </Window>
