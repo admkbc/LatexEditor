@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace LatexEditor
 {
@@ -36,9 +38,16 @@ namespace LatexEditor
         public MainWindow()
         {
             InitializeComponent();
+            InitVariables();
+        }
+
+        #region Private functions
+        private void InitVariables()
+        {
             IsForstPoint = true;
             IsMovePoint = false;
         }
+        #endregion
 
         #region Events
         private void MainCanvas_LeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -48,6 +57,7 @@ namespace LatexEditor
                 MovePoint.Fill = new SolidColorBrush(Colors.Black);
                 MovePoint.Stroke = new SolidColorBrush(Colors.Black);
                 IsMovePoint = false;
+                StatusBarTextBlock.Text = "Gotowy";
             }
             else
             {
@@ -57,6 +67,7 @@ namespace LatexEditor
                     MovePoint.Fill = new SolidColorBrush(Colors.Red);
                     MovePoint.Stroke = new SolidColorBrush(Colors.Red);
                     IsMovePoint = true;
+                    StatusBarTextBlock.Text = "Przenoszenie węzła...";
                 }
                 else if (e.OriginalSource is Canvas)
                 {
@@ -92,9 +103,6 @@ namespace LatexEditor
             }
         }
 
-
-        #endregion
-
         private void MainCanvas_OnMouseMove(object sender, MouseEventArgs e)
         {
             if (IsMovePoint)
@@ -104,5 +112,18 @@ namespace LatexEditor
                 Canvas.SetTop(MovePoint, mousePosition.Y + 2.5);
             }
         }
+
+        private void SaveMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "JPG Image|*.jpg|PDF file|*.pdf|Latex file|*.tex";
+            var result = dlg.ShowDialog();
+            if (result == true)
+            {
+
+            }
+        }
+
+        #endregion
     }
 }
