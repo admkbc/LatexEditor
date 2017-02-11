@@ -12,13 +12,19 @@
             <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        
         <StackPanel Grid.Column="0">
-            
+            <Button x:Name="NodeButton">
+                <Image Source="Resources/node.png" ToolTip="Węzeł"/>
+            </Button>
+            <Button x:Name="LineButton">
+                <Image Source="Resources/line.png" ToolTip="Linia"/>
+            </Button>
         </StackPanel>
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
         <Border x:Name="CanvasBorder" BorderBrush="Black" Grid.Column="2" Width="640" Height="480" BorderThickness="1">
         <Canvas Width="640" Height="480" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                x:Name="MainCanvas" MouseLeftButtonDown="MainCanvas_LeftButtonDown"
+                x:Name="MainCanvas" MouseLeftButtonDown="MainCanvas_LeftButtonDown" MouseMove="MainCanvas_OnMouseMove"
                 Background="Transparent" Opacity="1" ForceCursor="True" Cursor="Pen" Margin="10,10,10,10">
         </Canvas>
         </Border>
