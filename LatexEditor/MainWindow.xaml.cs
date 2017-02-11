@@ -22,14 +22,14 @@ namespace LatexEditor
     {
         #region Consts
 
-        private const string FirstPointName = "fPoint";
-        
         #endregion
 
         #region Variables
 
         private Point FirstPoint;
         private bool IsForstPoint;
+        private Ellipse MovePoint;
+        private bool IsMovePoint;
         
         #endregion
 
@@ -37,46 +37,72 @@ namespace LatexEditor
         {
             InitializeComponent();
             IsForstPoint = true;
+            IsMovePoint = false;
         }
 
         #region Events
         private void MainCanvas_LeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Point mouseClick = Mouse.GetPosition(MainCanvas);
-            if (IsForstPoint)
+            if (IsMovePoint)
             {
-                Ellipse point = new Ellipse();
-                point.Width = 3;
-                point.Height = 3;
-                point.Stroke = new SolidColorBrush(Colors.Black);
-                point.Fill = new SolidColorBrush(Colors.Black);
-                point.StrokeThickness = 3;
-                point.Name = FirstPointName;
-                // Set Canvas position
-                Canvas.SetLeft(point, mouseClick.X);
-                Canvas.SetTop(point, mouseClick.Y);
-                MainCanvas.Children.Add(point);
-                IsForstPoint = false;
-                FirstPoint = mouseClick;
+                MovePoint.Fill = new SolidColorBrush(Colors.Black);
+                MovePoint.Stroke = new SolidColorBrush(Colors.Black);
+                IsMovePoint = false;
             }
             else
             {
-                Line line = new Line();
-                line.X1 = FirstPoint.X;
-                line.Y1 = FirstPoint.Y;
-                line.X2 = mouseClick.X;
-                line.Y2 = mouseClick.Y;
-                line.Stroke = new SolidColorBrush(Colors.Black);
-                line.StrokeThickness = 3;
-                var fPoint = (UIElement)LogicalTreeHelper.FindLogicalNode(MainCanvas, FirstPointName);
-                MainCanvas.Children.Remove(fPoint);
-                MainCanvas.Children.Add(line);
-                IsForstPoint = true;
+                if (e.OriginalSource is Ellipse)
+                {
+                    MovePoint = e.OriginalSource as Ellipse;
+                    MovePoint.Fill = new SolidColorBrush(Colors.Red);
+                    MovePoint.Stroke = new SolidColorBrush(Colors.Red);
+                    IsMovePoint = true;
+                }
+                else if (e.OriginalSource is Canvas)
+                {
+                    Point mouseClick = Mouse.GetPosition(MainCanvas);
+                    if (!IsForstPoint)
+                    {
+                        Line line = new Line();
+                        line.X1 = FirstPoint.X + 2.5;
+                        line.Y1 = FirstPoint.Y + 2.5;
+                        line.X2 = mouseClick.X + 2.5;
+                        line.Y2 = mouseClick.Y + 2.5;
+                        line.Stroke = new SolidColorBrush(Colors.Black);
+                        line.StrokeThickness = 1;
+                        MainCanvas.Children.Add(line);
+                        IsForstPoint = true;
+                    }
+                    else
+                    {
+                        IsForstPoint = false;
+                    }
+
+                    Ellipse point = new Ellipse();
+                    point.Width = 5;
+                    point.Height = 5;
+                    point.Stroke = new SolidColorBrush(Colors.Black);
+                    point.Fill = new SolidColorBrush(Colors.Black);
+                    point.StrokeThickness = 5;
+                    Canvas.SetLeft(point, mouseClick.X);
+                    Canvas.SetTop(point, mouseClick.Y);
+                    MainCanvas.Children.Add(point);
+                    FirstPoint = mouseClick;
+                }
             }
         }
 
 
         #endregion
 
+        private void MainCanvas_OnMouseMove(object sender, MouseEventArgs e)
+        {
+            if (IsMovePoint)
+            {
+                Point mousePosition = Mouse.GetPosition(MainCanvas);
+                Canvas.SetLeft(MovePoint, mousePosition.X + 2.5);
+                Canvas.SetTop(MovePoint, mousePosition.Y + 2.5);
+            }
+        }
     }
 }
