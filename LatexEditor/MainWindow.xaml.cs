@@ -14,103 +14,89 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
-
 namespace LatexEditor
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        #region Consts
-
-        #endregion
-
-        #region Variables
-
-        private Point FirstPoint;
-        private bool IsForstPoint;
-        private Ellipse MovePoint;
-        private bool IsMovePoint;
-        
-        #endregion
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window
+	{
+        private List<Tuple<LatexPoint, Ellipse>> canvasComponents;
+        private List<Component> components;
+        private Component activeComponent;
+        private Ellipse draggedPoint;
 
         public MainWindow()
-        {
-            InitializeComponent();
-            InitVariables();
-        }
+		{
+			InitializeComponent();
+			InitVariables();
+		}
 
-        #region Private functions
-        private void InitVariables()
-        {
-            IsForstPoint = true;
-            IsMovePoint = false;
+		#region Private functions
+		private void InitVariables()
+		{
+			components = new List<Component>();
+            canvasComponents = new List<Tuple<LatexPoint, Ellipse>>();
         }
-        #endregion
+		#endregion
 
-        #region Events
-        private void MainCanvas_LeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (IsMovePoint)
+		#region Events
+		/// <summary>
+		/// Mouse left button pressed event handler.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void MainCanvas_LeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+            Point mouseClick = Mouse.GetPosition(MainCanvas);
+            if (e.OriginalSource is Ellipse)
             {
-                MovePoint.Fill = new SolidColorBrush(Colors.Black);
-                MovePoint.Stroke = new SolidColorBrush(Colors.Black);
-                IsMovePoint = false;
-                StatusBarTextBlock.Text = "Gotowy";
+                draggedPoint = e.OriginalSource as Ellipse;
+                draggedPoint.Fill = new SolidColorBrush(Colors.Red);
+                draggedPoint.Stroke = new SolidColorBrush(Colors.Red);
+                StatusBarTextBlock.Text = "Przenoszenie węzła...";
             }
-            else
+            else if (e.OriginalSource is Canvas)
             {
-                if (e.OriginalSource is Ellipse)
+                if (activeComponent!= null)  
                 {
-                    MovePoint = e.OriginalSource as Ellipse;
-                    MovePoint.Fill = new SolidColorBrush(Colors.Red);
-                    MovePoint.Stroke = new SolidColorBrush(Colors.Red);
-                    IsMovePoint = true;
-                    StatusBarTextBlock.Text = "Przenoszenie węzła...";
-                }
-                else if (e.OriginalSource is Canvas)
-                {
-                    Point mouseClick = Mouse.GetPosition(MainCanvas);
-                    if (!IsForstPoint)
-                    {
-                        Line line = new Line();
-                        line.X1 = FirstPoint.X + 2.5;
-                        line.Y1 = FirstPoint.Y + 2.5;
-                        line.X2 = mouseClick.X + 2.5;
-                        line.Y2 = mouseClick.Y + 2.5;
-                        line.Stroke = new SolidColorBrush(Colors.Black);
-                        line.StrokeThickness = 1;
-                        MainCanvas.Children.Add(line);
-                        IsForstPoint = true;
-                    }
-                    else
-                    {
-                        IsForstPoint = false;
-                    }
-
-                    Ellipse point = new Ellipse();
-                    point.Width = 5;
-                    point.Height = 5;
-                    point.Stroke = new SolidColorBrush(Colors.Black);
-                    point.Fill = new SolidColorBrush(Colors.Black);
-                    point.StrokeThickness = 5;
-                    Canvas.SetLeft(point, mouseClick.X);
-                    Canvas.SetTop(point, mouseClick.Y);
-                    MainCanvas.Children.Add(point);
-                    FirstPoint = mouseClick;
-                }
+                    LatexPolyline poly = activeComponent as LatexPolyline;
+                    LatexPoint point = new LatexPoint(mouseClick.X, mouseClick.Y);
+                    poly.AddPoint(point, MainCanvas);
+                    poly.Draw(MainCanvas);
+                }               
             }
+                
+         
         }
+
 
         private void MainCanvas_OnMouseMove(object sender, MouseEventArgs e)
         {
-            if (IsMovePoint)
+            if (draggedPoint != null)
             {
                 Point mousePosition = Mouse.GetPosition(MainCanvas);
-                Canvas.SetLeft(MovePoint, mousePosition.X + 2.5);
-                Canvas.SetTop(MovePoint, mousePosition.Y + 2.5);
+                LatexPolyline poly = activeComponent as LatexPolyline;
+                poly.UpdatePoint(draggedPoint, new LatexPoint(mousePosition.X, mousePosition.Y));
+                poly.Draw(MainCanvas);
             }
+        }
+
+        private void MainCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (draggedPoint != null)
+            {
+                draggedPoint.Fill = new SolidColorBrush(Colors.Black);
+                draggedPoint.Stroke = new SolidColorBrush(Colors.Black);
+                StatusBarTextBlock.Text = "Gotowy.";
+                draggedPoint = null;
+            }
+        }
+
+        private void LineButton_Click(object sender, RoutedEventArgs e)
+        {
+            activeComponent = new LatexPolyline();
+            components.Add(activeComponent);            
         }
 
         private void SaveMenuItem_OnClick(object sender, RoutedEventArgs e)
@@ -120,8 +106,30 @@ namespace LatexEditor
             var result = dlg.ShowDialog();
             if (result == true)
             {
-
+                string fileType = ParseFileType(dlg);
+                if (fileType == "tex")
+                    saveTex(dlg.FileName);
             }
+        }
+
+        private string ParseFileType(SaveFileDialog dlg)
+        {
+            string fileType = dlg.FileName;
+            int dotPosition = fileType.IndexOf('.');
+            return fileType.Substring(dotPosition + 1);
+        }
+
+        private void saveTex(string filePath)
+        {
+            StreamWriter file = new StreamWriter(filePath);
+            file.WriteLine("\\documentclass{standalone}");
+            file.WriteLine("\\usepackage{tikz}");
+            file.WriteLine("\\begin{document}");
+            file.WriteLine("\\begin{tikzpicture}");
+            foreach (Component component in components)
+                component.SaveToLatex(filePath);
+            file.WriteLine("\\end{tikzpicture}");
+            file.WriteLine("\\end{document}");
         }
 
         #endregion
