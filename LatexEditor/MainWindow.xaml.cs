@@ -121,15 +121,18 @@ namespace LatexEditor
 
         private void saveTex(string filePath)
         {
-            StreamWriter file = new StreamWriter(filePath);
-            file.WriteLine("\\documentclass{standalone}");
-            file.WriteLine("\\usepackage{tikz}");
-            file.WriteLine("\\begin{document}");
-            file.WriteLine("\\begin{tikzpicture}");
+            StreamWriter fileBegin =  File.CreateText(filePath);
+            fileBegin.WriteLine("\\documentclass{standalone}");
+            fileBegin.WriteLine("\\usepackage{tikz}");
+            fileBegin.WriteLine("\\begin{document}");
+            fileBegin.WriteLine("\\begin{tikzpicture}");
+            fileBegin.Close();
             foreach (Component component in components)
                 component.SaveToLatex(filePath);
-            file.WriteLine("\\end{tikzpicture}");
-            file.WriteLine("\\end{document}");
+            StreamWriter fileEnd = File.AppendText(filePath);
+            fileEnd.WriteLine("\\end{tikzpicture}");
+            fileEnd.WriteLine("\\end{document}");
+            fileEnd.Close();
         }
 
         #endregion

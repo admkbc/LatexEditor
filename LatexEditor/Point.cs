@@ -42,8 +42,9 @@ namespace LatexEditor
 
         public override void SaveToLatex(string filePath)
         {
-            StreamWriter file = new StreamWriter(filePath);
-            file.WriteLine("\\draw(" + X + "," +  Y + ") circle(0.2pt) node{ }");
+            StreamWriter file = File.AppendText(filePath);
+            file.Write("\\draw(" + X + "," +  Y + ") circle(0.2pt) node{ }");
+            file.Close();
         }
 
     }

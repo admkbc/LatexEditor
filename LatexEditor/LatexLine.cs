@@ -22,8 +22,9 @@ namespace LatexEditor
 
         public override void SaveToLatex(string filePath)
         {
-            StreamWriter file = new StreamWriter(filePath);
+            StreamWriter file = File.AppendText(filePath);
             file.WriteLine("\\draw (" + X + "," + Y + ") -- (" + lineEnd + ");");  //endLine ma mieć format: x,y
+            file.Close();
         }
 
     }
