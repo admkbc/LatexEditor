@@ -55,7 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="LatexCircle.cs" />
+    <Compile Include="LatexEclipse.cs" />
+    <Compile Include="LatexGrid.cs" />
     <Compile Include="LatexPolyline.cs" />
+    <Compile Include="LatexNode.cs" />
+    <Compile Include="LatexRectangle.cs" />
+    <Compile Include="LatexShape.cs" />
+    <Compile Include="LatexText.cs" />
     <Compile Include="Resources\CaptionTextResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

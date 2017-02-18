@@ -8,7 +8,7 @@ using System.Windows.Shapes;
 
 namespace LatexEditor
 {
-	class LatexPoint : Component
+	class LatexPoint : LatexNode
 	{
 
         public Ellipse ellipse { get; set; }
