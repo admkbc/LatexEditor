@@ -1,6 +1,10 @@
 ﻿
+using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace LatexEditor
 {
@@ -45,6 +49,19 @@ namespace LatexEditor
             StreamWriter file = File.AppendText(filePath);
             file.Write("\\draw(" + X + "," +  Y + ") circle(0.2pt) node{ }");
             file.Close();
+        }
+
+        internal void Draw(Canvas mainCanvas)
+        {
+            Ellipse elipse = new Ellipse();
+            elipse.Width = 6;
+            elipse.Height = 6;
+            elipse.Stroke = new SolidColorBrush(Colors.Black);
+            elipse.Fill = new SolidColorBrush(Colors.Black);
+            elipse.StrokeThickness = 6;
+            Canvas.SetLeft(elipse, X);
+            Canvas.SetTop(elipse, Y);
+            mainCanvas.Children.Add(elipse);
         }
 
     }

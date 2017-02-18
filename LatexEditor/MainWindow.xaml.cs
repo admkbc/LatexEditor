@@ -24,6 +24,7 @@ namespace LatexEditor
         private List<Component> components;
         private Component activeComponent;
         private Ellipse draggedPoint;
+        private LatexPoint firstPoint;
 
         public MainWindow()
 		{
@@ -50,33 +51,64 @@ namespace LatexEditor
             if (e.OriginalSource is Ellipse)
             {
                 draggedPoint = e.OriginalSource as Ellipse;
-                draggedPoint.Fill = new SolidColorBrush(Colors.Red);
-                draggedPoint.Stroke = new SolidColorBrush(Colors.Red);
-                StatusBarTextBlock.Text = "Przenoszenie węzła...";
-            }
-            else if (e.OriginalSource is Canvas)
-            {
-                if (activeComponent!= null)  
+                if (firstPoint != null)
                 {
-                    LatexPolyline poly = activeComponent as LatexPolyline;
+                    components.Add(activeComponent);
+                    LatexPolyline poly = new LatexPolyline();
+                    poly.AddPoint(firstPoint, MainCanvas);
                     LatexPoint point = new LatexPoint(mouseClick.X, mouseClick.Y);
                     poly.AddPoint(point, MainCanvas);
                     poly.Draw(MainCanvas);
+                    activeComponent = poly;
+                    firstPoint = null;
+                    var fPoint = (UIElement)LogicalTreeHelper.FindLogicalNode(MainCanvas, "fpoint");
+                    MainCanvas.Children.Remove(fPoint);
+                    MainCanvas.Children.Remove(draggedPoint);
                 }               
-            }               
-         
+                else
+                {
+                    firstPoint = new LatexPoint(mouseClick);
+                    draggedPoint.Name = "fpoint";
+                    draggedPoint.Fill = new SolidColorBrush(Colors.Red);
+                    draggedPoint.Stroke = new SolidColorBrush(Colors.Red);
+                    StatusBarTextBlock.Text = "Przenoszenie węzła...";
+                }
+            }
+            else if (e.OriginalSource is Canvas)
+            {
+                if (activeComponent != null)  
+                {
+                    if (activeComponent is LatexPolyline)
+                    {
+                        LatexPolyline poly = activeComponent as LatexPolyline;
+                        LatexPoint point = new LatexPoint(mouseClick.X, mouseClick.Y);
+                        poly.AddPoint(point, MainCanvas);
+                        poly.Draw(MainCanvas);
+                    }
+                    else if (activeComponent is LatexPoint)
+                    {
+                        LatexPoint node = activeComponent as LatexPoint;
+                        LatexPoint point = new LatexPoint(mouseClick.X, mouseClick.Y);
+                        node.SetPosition(point);
+                        node.Draw(MainCanvas);
+                    }
+                }               
+            }          
         }
-
 
         private void MainCanvas_OnMouseMove(object sender, MouseEventArgs e)
         {
             if (draggedPoint != null)
             {
-                activeComponent = FindActiveComponent(draggedPoint); // Select component which contain draggedPoint 
-                Point mousePosition = Mouse.GetPosition(MainCanvas);
-                LatexPolyline poly = activeComponent as LatexPolyline;
-                poly.UpdatePoint(draggedPoint, new LatexPoint(mousePosition.X, mousePosition.Y));
-                poly.Draw(MainCanvas);
+                if (activeComponent is LatexPolyline)
+                {
+                    activeComponent = FindActiveComponent(draggedPoint); // Select component which contain draggedPoint 
+                    Point mousePosition = Mouse.GetPosition(MainCanvas);
+                    LatexPolyline poly = activeComponent as LatexPolyline;
+                    poly.UpdatePoint(draggedPoint, new LatexPoint(mousePosition.X, mousePosition.Y));
+                    poly.Draw(MainCanvas);
+                    firstPoint = null;
+                }
             }
         }
 
@@ -90,6 +122,12 @@ namespace LatexEditor
                 StatusBarTextBlock.Text = "Gotowy.";
                 draggedPoint = null;
             }
+        }
+        
+        private void NodeButton_OnClickButton_Click(object sender, RoutedEventArgs e)
+        {
+            activeComponent = new LatexPoint();
+            components.Add(activeComponent);
         }
 
         private void LineButton_Click(object sender, RoutedEventArgs e)
@@ -128,5 +166,6 @@ namespace LatexEditor
         }
 
         #endregion
-    }
+
+	}
 }
