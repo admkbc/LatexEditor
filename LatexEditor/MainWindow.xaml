@@ -37,7 +37,7 @@
             <Border x:Name="CanvasBorder" BorderBrush="Black" Grid.Column="2" Width="640" Height="480" BorderThickness="1">
                 <Canvas Width="640" Height="480" HorizontalAlignment="Center" VerticalAlignment="Center" 
                 x:Name="MainCanvas" MouseLeftButtonDown="MainCanvas_LeftButtonDown" MouseLeftButtonUp="MainCanvas_MouseLeftButtonUp" MouseMove="MainCanvas_OnMouseMove"
-                Background="Transparent" Opacity="1" ForceCursor="True" Cursor="Pen" Margin="10,10,10,10">
+                Background="White" Opacity="1" ForceCursor="True" Cursor="Pen" Margin="10,10,10,10">
                 </Canvas>
             </Border>
         </Grid>
