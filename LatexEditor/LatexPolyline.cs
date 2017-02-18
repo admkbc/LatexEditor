@@ -34,8 +34,7 @@ namespace LatexEditor
             Canvas.SetLeft(elipse, latexPoint.X);
             Canvas.SetTop(elipse, latexPoint.Y);
             pointList.Add(Tuple.Create(latexPoint, elipse));
-            mainCanvas.Children.Add(elipse);
-            
+            mainCanvas.Children.Add(elipse);        
         }
 
         internal void Draw(Canvas mainCanvas)
