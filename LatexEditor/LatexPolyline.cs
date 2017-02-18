@@ -12,7 +12,7 @@ namespace LatexEditor
 {
     class LatexPolyline : LatexLine
     {
-        private List<LatexPoint> pointList;
+        public List<LatexPoint> pointList { get; set; }
         private List<Line> lines;
 
         public LatexPolyline()
