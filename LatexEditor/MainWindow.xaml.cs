@@ -59,11 +59,14 @@ namespace LatexEditor
                     LatexPoint point = new LatexPoint(mouseClick.X, mouseClick.Y);
                     poly.AddPoint(point, MainCanvas);
                     poly.Draw(MainCanvas);
-                    activeComponent = poly;
-                    firstPoint = null;
+                    components.Remove(activeComponent);
+                    activeComponent = poly;                    
+                    components.Remove(firstPoint);
+                    firstPoint = null;               
                     var fPoint = (UIElement)LogicalTreeHelper.FindLogicalNode(MainCanvas, "fpoint");
                     MainCanvas.Children.Remove(fPoint);
                     MainCanvas.Children.Remove(draggedPoint);
+                    draggedPoint = null;
                 }               
                 else
                 {
@@ -87,6 +90,8 @@ namespace LatexEditor
                     }
                     else if (activeComponent is LatexPoint)
                     {
+                        activeComponent = new LatexPoint();
+                        components.Add(activeComponent);
                         LatexPoint node = activeComponent as LatexPoint;
                         LatexPoint point = new LatexPoint(mouseClick.X, mouseClick.Y);
                         node.SetPosition(point);
@@ -100,14 +105,21 @@ namespace LatexEditor
         {
             if (draggedPoint != null)
             {
+                activeComponent = FindActiveComponent(draggedPoint); // Select component which contain draggedPoint 
+                Point mousePosition = Mouse.GetPosition(MainCanvas);
                 if (activeComponent is LatexPolyline)
-                {
-                    activeComponent = FindActiveComponent(draggedPoint); // Select component which contain draggedPoint 
-                    Point mousePosition = Mouse.GetPosition(MainCanvas);
+                {                    
                     LatexPolyline poly = activeComponent as LatexPolyline;
                     poly.UpdatePoint(draggedPoint, new LatexPoint(mousePosition.X, mousePosition.Y));
                     poly.Draw(MainCanvas);
+                    components.Remove(firstPoint);
                     firstPoint = null;
+                }
+                if (activeComponent is LatexPoint)
+                {
+                    LatexPoint point = activeComponent as LatexPoint;
+                    point.UpdatePoint(new LatexPoint(mousePosition.X, mousePosition.Y));
+                    point.Draw(MainCanvas);                   
                 }
             }
         }
@@ -155,14 +167,10 @@ namespace LatexEditor
         {
             foreach (Component component in components)
             {
-                if (typeof(LatexPolyline) == component.GetType())
-                {
-                    LatexPolyline poly = component as LatexPolyline;
-                    if (poly.Contain(draggedPoint))
-                        return component;
-                }                
+                if (component.Contain(draggedPoint))
+                    return component;                     
             }
-            return null; // error jak przesuwamy punkt; 
+            return null; 
         }
 
         #endregion

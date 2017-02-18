@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Shapes;
 
 namespace LatexEditor
 {
@@ -53,5 +54,11 @@ namespace LatexEditor
         }
 
         virtual public void SaveToLatex(string filePath) { }
+
+        public virtual bool Contain(Ellipse elipse)
+        {
+            MessageBox.Show("sssss");
+            return false;
+        }
     }
 }
