@@ -72,5 +72,15 @@ namespace LatexEditor
             }
            
         }
+
+        public bool Contain(Ellipse elipse)
+        {
+            foreach (Tuple<LatexPoint, Ellipse> pair in pointList)
+            {
+                if (pair.Item2 == elipse)
+                    return true;
+            }
+            return false;
+        }
     }
 }

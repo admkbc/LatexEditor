@@ -21,7 +21,6 @@ namespace LatexEditor
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-        private List<Tuple<LatexPoint, Ellipse>> canvasComponents;
         private List<Component> components;
         private Component activeComponent;
         private Ellipse draggedPoint;
@@ -37,7 +36,6 @@ namespace LatexEditor
 		private void InitVariables()
 		{
 			components = new List<Component>();
-            canvasComponents = new List<Tuple<LatexPoint, Ellipse>>();
         }
 		#endregion
 
@@ -66,7 +64,7 @@ namespace LatexEditor
                     var fPoint = (UIElement)LogicalTreeHelper.FindLogicalNode(MainCanvas, "fpoint");
                     MainCanvas.Children.Remove(fPoint);
                     MainCanvas.Children.Remove(draggedPoint);
-                }
+                }               
                 else
                 {
                     firstPoint = new LatexPoint(mouseClick);
@@ -104,6 +102,7 @@ namespace LatexEditor
             {
                 if (activeComponent is LatexPolyline)
                 {
+                    activeComponent = FindActiveComponent(draggedPoint); // Select component which contain draggedPoint 
                     Point mousePosition = Mouse.GetPosition(MainCanvas);
                     LatexPolyline poly = activeComponent as LatexPolyline;
                     poly.UpdatePoint(draggedPoint, new LatexPoint(mousePosition.X, mousePosition.Y));
@@ -112,6 +111,7 @@ namespace LatexEditor
                 }
             }
         }
+
 
         private void MainCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -142,34 +142,27 @@ namespace LatexEditor
             dlg.Filter = "JPG Image|*.jpg|PDF file|*.pdf|Latex file|*.tex";
             var result = dlg.ShowDialog();
             if (result == true)
-            {
-                string fileType = ParseFileType(dlg);
-                if (fileType == "tex")
-                    saveTex(dlg.FileName);
+            {                
+                string fileType = System.IO.Path.GetExtension(dlg.FileName);               
+                if (fileType == ".tex")
+                    Save.saveTex(dlg.FileName, components);
+                if (fileType == ".jpg")
+                    Save.saveJpg(dlg.FileName, MainCanvas);  
             }
         }
 
-        private string ParseFileType(SaveFileDialog dlg)
+        private Component FindActiveComponent(Ellipse draggedPoint)
         {
-            string fileType = dlg.FileName;
-            int dotPosition = fileType.IndexOf('.');
-            return fileType.Substring(dotPosition + 1);
-        }
-
-        private void saveTex(string filePath)
-        {
-            StreamWriter fileBegin =  File.CreateText(filePath);
-            fileBegin.WriteLine("\\documentclass{standalone}");
-            fileBegin.WriteLine("\\usepackage{tikz}");
-            fileBegin.WriteLine("\\begin{document}");
-            fileBegin.WriteLine("\\begin{tikzpicture}");
-            fileBegin.Close();
             foreach (Component component in components)
-                component.SaveToLatex(filePath);
-            StreamWriter fileEnd = File.AppendText(filePath);
-            fileEnd.WriteLine("\\end{tikzpicture}");
-            fileEnd.WriteLine("\\end{document}");
-            fileEnd.Close();
+            {
+                if (typeof(LatexPolyline) == component.GetType())
+                {
+                    LatexPolyline poly = component as LatexPolyline;
+                    if (poly.Contain(draggedPoint))
+                        return component;
+                }                
+            }
+            return null; // error jak przesuwamy punkt; 
         }
 
         #endregion
