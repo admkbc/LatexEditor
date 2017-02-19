@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +17,11 @@ namespace LatexEditor
         public List<LatexPoint> pointList { get; set; }
         private List<Line> lines;
 
-        public LatexPolyline()
+        public LatexPolyline(Canvas mainCanvas)
         {
             pointList = new List<LatexPoint>();
             lines = new List<Line>();
+            this.mainCanvas = mainCanvas;
         }
 
         public void AddPoint(LatexPoint latexPoint, Canvas mainCanvas)
@@ -26,7 +29,7 @@ namespace LatexEditor
             pointList.Add(latexPoint);            
         }
 
-        internal void Draw(Canvas mainCanvas)
+        internal void Draw()
         {
            foreach (Line line in lines) // Remove all lines 
             {
@@ -35,7 +38,7 @@ namespace LatexEditor
 
             foreach (LatexPoint point in pointList) // Draw points
             {
-                point.Draw(mainCanvas);
+                point.Draw();
             }
 
             for (int i =0; i<pointList.Count-1; i++) // Draw new lines
@@ -75,6 +78,23 @@ namespace LatexEditor
                     return true;
             }
             return false;
+        }
+
+        public override void SaveToLatex(string filePath)
+        {
+            StreamWriter file = File.AppendText(filePath);
+            file.WriteLine("\\draw");                   
+            foreach (LatexNode point in pointList)
+            {
+                if (point == pointList.ElementAt(0))
+                    lineStyle = "  ";
+                else
+                    lineStyle = "--";
+
+                file.WriteLine(lineStyle + " (" + point.X.ToString(new CultureInfo("en-US")) + " , " + RecalculateCoordinateY(point.Y).ToString(new CultureInfo("en-US")) + ") node {}");                
+            }
+            file.WriteLine(";");
+            file.Close();
         }
     }
 }
