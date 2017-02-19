@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,8 +13,9 @@ namespace LatexEditor
 	{
 
         public Ellipse ellipse { get; set; }
+        public string PointColor { get; set; }
 
-        public LatexPoint ()
+        public LatexPoint (Canvas mainCanvas)
 		{
             ellipse = new Ellipse();
             ellipse.Width = 6;
@@ -21,6 +23,8 @@ namespace LatexEditor
             ellipse.Stroke = new SolidColorBrush(Colors.Black);
             ellipse.Fill = new SolidColorBrush(Colors.Black);
             ellipse.StrokeThickness = 6;
+            PointColor = "black";
+            this.mainCanvas = mainCanvas;
         }
 
 		/// <summary>
@@ -28,20 +32,20 @@ namespace LatexEditor
 		/// </summary>
 		/// <param name="x">X position.</param>
 		/// <param name="y">Y position.</param>
-		public LatexPoint (double x, double y) : this()
+		public LatexPoint (double x, double y, Canvas mainCanvas) : this(mainCanvas)
 		{            
             this.X = x;
-			this.Y = y;           
+			this.Y = y;      
         }
 
 		/// <summary>
 		/// Creates an instance from existing Point class object.
 		/// </summary>
 		/// <param name="point">Position object</param>
-		public LatexPoint (Point point) : this()
+		public LatexPoint (Point point, Canvas mainCanvas) : this(mainCanvas)
         {
 			this.X = point.X;
-			this.Y = point.Y;            
+			this.Y = point.Y;         
         }
 
         public void SetPosition(LatexPoint point)
@@ -54,11 +58,11 @@ namespace LatexEditor
         public override void SaveToLatex(string filePath)
         {
             StreamWriter file = File.AppendText(filePath);
-            file.Write("\\draw(" + X + "," +  Y + ") circle(0.2pt) node{ }");
+            file.WriteLine("\\fill[fill=" + PointColor + "] (" + X.ToString(new CultureInfo("en-US")) + " , " + RecalculateCoordinateY(Y).ToString(new CultureInfo("en-US")) + ") circle(50pt) node{ };");
             file.Close();
         }
 
-        internal void Draw(Canvas mainCanvas)
+        internal void Draw()
         {    
             Canvas.SetLeft(ellipse, X);
             Canvas.SetTop(ellipse, Y);
