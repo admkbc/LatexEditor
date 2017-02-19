@@ -37,45 +37,56 @@ namespace LatexEditor
 		{
 			components = new List<Component>();
         }
-		#endregion
 
-		#region Events
-		/// <summary>
-		/// Mouse left button pressed event handler.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void MainCanvas_LeftButtonDown(object sender, MouseButtonEventArgs e)
+        private Component FindActiveComponent(Ellipse draggedPoint)
+        {
+            foreach (Component component in components)
+            {
+                if (component.Contain(draggedPoint))
+                    return component;
+            }
+            return null;
+        }
+        #endregion
+
+        #region Events
+        /// <summary>
+        /// Mouse left button pressed event handler.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainCanvas_LeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
             Point mouseClick = Mouse.GetPosition(MainCanvas);
             if (e.OriginalSource is Ellipse)
             {
                 draggedPoint = e.OriginalSource as Ellipse;
-                if (firstPoint != null)
-                {
-                    components.Add(activeComponent);
-                    LatexPolyline poly = new LatexPolyline();
-                    poly.AddPoint(firstPoint, MainCanvas);
-                    LatexPoint point = new LatexPoint(mouseClick.X, mouseClick.Y);
-                    poly.AddPoint(point, MainCanvas);
-                    poly.Draw(MainCanvas);
-                    components.Remove(activeComponent);
-                    activeComponent = poly;                    
-                    components.Remove(firstPoint);
-                    firstPoint = null;               
-                    var fPoint = (UIElement)LogicalTreeHelper.FindLogicalNode(MainCanvas, "fpoint");
-                    MainCanvas.Children.Remove(fPoint);
-                    MainCanvas.Children.Remove(draggedPoint);
-                    draggedPoint = null;
-                }               
-                else
-                {
-                    firstPoint = new LatexPoint(mouseClick);
-                    draggedPoint.Name = "fpoint";
+                //łączenie dwóch punktów linią
+                //if (firstPoint != null)
+                //{
+                //    components.Add(activeComponent);
+                //    LatexPolyline poly = new LatexPolyline();
+                //    poly.AddPoint(firstPoint, MainCanvas);
+                //    LatexPoint point = new LatexPoint(mouseClick.X, mouseClick.Y);
+                //    poly.AddPoint(point, MainCanvas);
+                //    poly.Draw(MainCanvas);
+                //    components.Remove(activeComponent);
+                //    activeComponent = poly;                    
+                //    components.Remove(firstPoint);
+                //    firstPoint = null;               
+                //    var fPoint = (UIElement)LogicalTreeHelper.FindLogicalNode(MainCanvas, "fpoint");
+                //    MainCanvas.Children.Remove(fPoint);
+                //    MainCanvas.Children.Remove(draggedPoint);
+                //    draggedPoint = null;
+                //}               
+                //else
+                //{
+                //    firstPoint = new LatexPoint(mouseClick);
+                //    draggedPoint.Name = "fpoint";
                     draggedPoint.Fill = new SolidColorBrush(Colors.Red);
                     draggedPoint.Stroke = new SolidColorBrush(Colors.Red);
                     StatusBarTextBlock.Text = "Przenoszenie węzła...";
-                }
+                //}
             }
             else if (e.OriginalSource is Canvas)
             {
@@ -112,8 +123,8 @@ namespace LatexEditor
                     LatexPolyline poly = activeComponent as LatexPolyline;
                     poly.UpdatePoint(draggedPoint, new LatexPoint(mousePosition.X, mousePosition.Y));
                     poly.Draw(MainCanvas);
-                    components.Remove(firstPoint);
-                    firstPoint = null;
+                    //components.Remove(firstPoint);
+                    //firstPoint = null;
                 }
                 if (activeComponent is LatexPoint)
                 {
@@ -162,17 +173,6 @@ namespace LatexEditor
                     Save.saveJpg(dlg.FileName, MainCanvas, components);  
             }
         }
-
-        private Component FindActiveComponent(Ellipse draggedPoint)
-        {
-            foreach (Component component in components)
-            {
-                if (component.Contain(draggedPoint))
-                    return component;                     
-            }
-            return null; 
-        }
-
         #endregion
 
 	}
