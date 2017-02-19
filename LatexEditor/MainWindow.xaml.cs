@@ -159,7 +159,7 @@ namespace LatexEditor
                 if (fileType == ".tex")
                     Save.saveTex(dlg.FileName, components);
                 if (fileType == ".jpg")
-                    Save.saveJpg(dlg.FileName, MainCanvas);  
+                    Save.saveJpg(dlg.FileName, MainCanvas, components);  
             }
         }
 

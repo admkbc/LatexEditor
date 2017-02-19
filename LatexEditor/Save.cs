@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LatexEditor;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,8 +13,19 @@ namespace LatexEditor
     class Save
     {
 
-        public static void saveJpg(string fileName, Canvas canvas)
+        public static void saveJpg(string fileName, Canvas canvas, List<Component> components)
         {
+            foreach (Component component in components) // Remove points before saving jpg
+            {
+                if (component is LatexPolyline)
+                {
+                    foreach (LatexPoint point in ((LatexPolyline)component).pointList)
+                    {
+                        canvas.Children.Remove(point.ellipse);
+                    }
+                }
+
+            }
             RenderTargetBitmap rtb = new RenderTargetBitmap((int)canvas.RenderSize.Width,
             (int)canvas.RenderSize.Height, 96d, 96d, System.Windows.Media.PixelFormats.Default);
             rtb.Render(canvas);
@@ -24,6 +36,17 @@ namespace LatexEditor
             using (var fs = System.IO.File.OpenWrite(fileName))
             {
                 jpegEncoder.Save(fs);
+            }
+
+            foreach (Component component in components) // Restore points after saving jpg
+            {
+                if (component is LatexPolyline)
+                {
+                    foreach (LatexPoint point in ((LatexPolyline)component).pointList)
+                    {
+                        canvas.Children.Add(point.ellipse);
+                    }
+                }
             }
         }
 
