@@ -23,12 +23,12 @@ namespace LatexEditor
             this.mainCanvas = mainCanvas;
         }
 
-        public override void SaveToLatex(string filePath)
-        {
-            StreamWriter file = File.AppendText(filePath);
-            file.WriteLine("\\draw (" + X.ToString(new CultureInfo("en-US")) + " , " + RecalculateCoordinateY(Y).ToString(new CultureInfo("en-US")) + ") -- (" + lineEnd + ");");
-            file.Close();
-        }
+        //public override void SaveToLatex(string filePath)
+        //{
+        //    StreamWriter file = File.AppendText(filePath);
+        //    file.WriteLine("\\draw (" + X.ToString(new CultureInfo("en-US")) + " , " + RecalculateCoordinateY(Y).ToString(new CultureInfo("en-US")) + ") -- (" + lineEnd + ");");
+        //    file.Close();
+        //}
 
     }
 }

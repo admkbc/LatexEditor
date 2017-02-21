@@ -61,32 +61,9 @@ namespace LatexEditor
             if (e.OriginalSource is Ellipse)
             {
                 draggedPoint = e.OriginalSource as Ellipse;
-                //łączenie dwóch punktów linią
-                //if (firstPoint != null)
-                //{
-                //    components.Add(activeComponent);
-                //    LatexPolyline poly = new LatexPolyline();
-                //    poly.AddPoint(firstPoint, MainCanvas);
-                //    LatexPoint point = new LatexPoint(mouseClick.X, mouseClick.Y);
-                //    poly.AddPoint(point, MainCanvas);
-                //    poly.Draw(MainCanvas);
-                //    components.Remove(activeComponent);
-                //    activeComponent = poly;                    
-                //    components.Remove(firstPoint);
-                //    firstPoint = null;               
-                //    var fPoint = (UIElement)LogicalTreeHelper.FindLogicalNode(MainCanvas, "fpoint");
-                //    MainCanvas.Children.Remove(fPoint);
-                //    MainCanvas.Children.Remove(draggedPoint);
-                //    draggedPoint = null;
-                //}               
-                //else
-                //{
-                //    firstPoint = new LatexPoint(mouseClick);
-                //    draggedPoint.Name = "fpoint";
-                    draggedPoint.Fill = new SolidColorBrush(Colors.Red);
-                    draggedPoint.Stroke = new SolidColorBrush(Colors.Red);
-                    StatusBarTextBlock.Text = "Przenoszenie węzła...";
-                //}
+                draggedPoint.Fill = new SolidColorBrush(Colors.Red);
+                draggedPoint.Stroke = new SolidColorBrush(Colors.Red);
+                StatusBarTextBlock.Text = "Przenoszenie węzła...";
             }
             else if (e.OriginalSource is Canvas)
             {

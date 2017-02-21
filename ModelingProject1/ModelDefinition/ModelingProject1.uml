@@ -468,21 +468,21 @@
         isActiveClass="false">
         <targetEnds>
           <association
-            Id="78dc8761-df23-4bc8-ab2d-d887792c7010"
+            Id="5921f09c-e73c-4702-a885-e4196420db24"
             isDerived="false"
-            sourceEndRoleName="Canvas"
-            targetEndRoleName="Component"
+            sourceEndRoleName="Component"
+            targetEndRoleName="Node"
             isLeaf="false"
             isAbstract="false">
             <classMoniker
-              Id="6bc8b62c-6877-402b-875b-9b2e576b83ab"
-              LastKnownName="Canvas"
+              Id="ad76621b-3b85-4407-8b45-a12d228ca5af"
+              LastKnownName="Node"
               LastKnownLocation="ModelingProject1.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="9b656c90-20e7-43be-a345-84d765fe9eba"
-                  name="Canvas"
+                  Id="bff0a211-acce-4a91-8cd6-6ef84612c1bc"
+                  name="Component"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -490,32 +490,32 @@
                   isDerivedUnion="false"
                   aggregation="Composite"
                   isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="0273b0d1-cb35-4b0c-889e-663eee44a303"
-                      name="Lower"
-                      value="M" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="a0a62c75-9ec4-4371-8a1e-85690602b02b"
-                      name="Upper"
-                      value="M" />
-                  </upperValueInternal>
-                </memberEnd>
+                  isNavigableOwned="false" />
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="233e8f5f-ed8a-48c6-b7be-5101e991e080"
-                  name="Component"
+                  Id="466acc8b-ab0a-4837-923d-e44ac7c832df"
+                  name="Node"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
                   isDerived="false"
                   isDerivedUnion="false"
                   aggregation="None"
-                  isComposite="true" />
+                  isComposite="true">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="ee59c567-94e3-4409-b6f0-a83c2bbb667c"
+                      name="Lower"
+                      value="M" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="30b6b0dc-02d4-4a34-9844-0e954e875f71"
+                      name="Upper"
+                      value="M" />
+                  </upperValueInternal>
+                </memberEnd>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
@@ -670,6 +670,58 @@
                   isDerivedUnion="false"
                   aggregation="None"
                   isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="d1d1b458-a8c8-470b-afa2-b4b4f54da930"
+            isDerived="false"
+            sourceEndRoleName="Canvas"
+            targetEndRoleName="Component"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="185c0a1c-1148-44d6-8c80-05f92f9abab7"
+              LastKnownName="Component"
+              LastKnownLocation="ModelingProject1.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="07cea368-988c-4bab-bc8e-aba2d9d94279"
+                  name="Canvas"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0c2bef2d-ec81-42e0-b44e-2ad616a4fb3b"
+                  name="Component"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="2b87ba9e-18c7-4981-9ed7-5e3c1fa82c8d"
+                      name="Lower"
+                      value="M" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="56a75b36-ac89-46d0-ab2c-7f7679a84778"
+                      name="Upper"
+                      value="M" />
+                  </upperValueInternal>
+                </memberEnd>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
@@ -904,61 +956,32 @@
               LastKnownLocation="ModelingProject1.uml" />
           </generalization>
         </generalsInternal>
-        <targetEnds>
-          <association
-            Id="629af5cc-7269-4e01-a6c0-a5600d7d65e7"
-            isDerived="false"
-            sourceEndRoleName="Node"
-            targetEndRoleName="Component"
+        <ownedAttributesInternal>
+          <property
+            Id="2fd164d2-070f-429b-916c-81a05688aab4"
+            name="ellipse"
             isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="185c0a1c-1148-44d6-8c80-05f92f9abab7"
-              LastKnownName="Component"
-              LastKnownLocation="ModelingProject1.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="d2f3d1ef-f129-433d-aa41-b588043d3320"
-                  name="Node"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="Composite"
-                  isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="34848257-533f-433e-8c1e-83168682941b"
-                      name="Lower"
-                      value="M" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="bee3415f-bbe9-4175-8f0e-3f5813875748"
-                      name="Upper"
-                      value="M" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="a481e22f-c16d-4222-ace5-200a7d733a54"
-                  name="Component"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="true" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="de21ec4b-4263-466e-a643-30e955d581ec"
+                LastKnownName="Ellipse"
+                LastKnownLocation="ModelingProject1.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="de21ec4b-4263-466e-a643-30e955d581ec"
+        name="Ellipse" />
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType

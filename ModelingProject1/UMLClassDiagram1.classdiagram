@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="5b441e7d-41af-4145-80cb-006adcbd231d" name="UMLClassDiagram1" linkedPackageId="d11bc1e1-d0ad-48c3-a7d2-4fed8e68cc63" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="5b441e7d-41af-4145-80cb-006adcbd231d" name="UMLClassDiagram1" linkedPackageId="d11bc1e1-d0ad-48c3-a7d2-4fed8e68cc63" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <packagedElements>
     <logicalClassDesignerModelHasTypes>
       <class Id="41274f26-4812-4bd6-874e-86ce6d489fe2" name="Line" isAbstract="true" isLeaf="false" isActiveClass="false">
@@ -227,31 +227,31 @@
       <class Id="833e840b-08e5-4278-aa14-fe24f44e2841" name="Component" isAbstract="true" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="185c0a1c-1148-44d6-8c80-05f92f9abab7" />
         <targetEnds>
-          <association Id="c052e49e-408d-4ef8-a874-661d85c3fa79" isDerived="false" sourceEndRoleName="Canvas" targetEndRoleName="Component" isLeaf="false" isAbstract="false">
-            <classMoniker Id="7b448a55-7df9-4ab8-b0e0-831edecbf3f3" LastKnownName="Canvas" />
+          <association Id="4bffd8f8-2c46-44bc-abfd-3bdfbd909d6c" isDerived="false" sourceEndRoleName="Component" targetEndRoleName="Node" isLeaf="false" isAbstract="false">
+            <classMoniker Id="bc2ee501-b690-4b73-9cd2-91b28df6087e" LastKnownName="Node" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="6a5d7621-12c6-42b8-b644-2f6704d4b4d3" name="Canvas" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                <memberEnd Id="942ac3d9-b427-4f92-abac-6e65d047760b" name="Component" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="bff0a211-acce-4a91-8cd6-6ef84612c1bc" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7153796a-6d93-43b2-8e4d-2f0ebe004137" name="Node" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
                   <lowerValueInternal>
-                    <literalString Id="1abb8454-0786-4f0e-9866-8673a288430e" name="Lower" value="M">
-                      <elementDefinition Id="0273b0d1-cb35-4b0c-889e-663eee44a303" />
+                    <literalString Id="8b623218-f2d2-458b-b2e3-ca4eef7cbc8d" name="Lower" value="M">
+                      <elementDefinition Id="ee59c567-94e3-4409-b6f0-a83c2bbb667c" />
                     </literalString>
                   </lowerValueInternal>
                   <upperValueInternal>
-                    <literalString Id="bce6d3ee-5d9a-46cb-a514-2cc211391a58" name="Upper" value="M">
-                      <elementDefinition Id="a0a62c75-9ec4-4371-8a1e-85690602b02b" />
+                    <literalString Id="08a943eb-68bc-4658-bf3c-d08b69d3da21" name="Upper" value="M">
+                      <elementDefinition Id="30b6b0dc-02d4-4a34-9844-0e954e875f71" />
                     </literalString>
                   </upperValueInternal>
-                  <elementDefinition Id="9b656c90-20e7-43be-a345-84d765fe9eba" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="0cebc6cf-40b1-4865-8f8f-1c2bf2f0e8a1" name="Component" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
-                  <elementDefinition Id="233e8f5f-ed8a-48c6-b7be-5101e991e080" />
+                  <elementDefinition Id="466acc8b-ab0a-4837-923d-e44ac7c832df" />
                 </memberEnd>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
-            <elementDefinition Id="78dc8761-df23-4bc8-ab2d-d887792c7010" />
+            <elementDefinition Id="5921f09c-e73c-4702-a885-e4196420db24" />
           </association>
         </targetEnds>
         <ownedAttributesInternal>
@@ -307,21 +307,31 @@
       <class Id="7b448a55-7df9-4ab8-b0e0-831edecbf3f3" name="Canvas" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="6bc8b62c-6877-402b-875b-9b2e576b83ab" />
         <targetEnds>
-          <association Id="4b46f9ee-4d88-4fa2-ba30-baf74c04fb89" isDerived="false" sourceEndRoleName="Project" targetEndRoleName="Canvas" isLeaf="false" isAbstract="false">
-            <classMoniker Id="22104a20-1826-4cc0-87f7-16e317eec6d2" LastKnownName="Project" />
+          <association Id="a9b9b788-6d4a-4d37-87bd-9c0cc817495e" isDerived="false" sourceEndRoleName="Canvas" targetEndRoleName="Component" isLeaf="false" isAbstract="false">
+            <classMoniker Id="833e840b-08e5-4278-aa14-fe24f44e2841" LastKnownName="Component" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="dfd5c1dc-5fd2-4e08-b930-37e1f5d2fc14" name="Project" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="e22f9a8a-ad68-4330-8fc4-8c015ba8114b" />
+                <memberEnd Id="62e491b7-304c-41df-b62b-f67925e7edfa" name="Canvas" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="07cea368-988c-4bab-bc8e-aba2d9d94279" />
                 </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
-                <memberEnd Id="82341f32-c9db-4857-a184-c757574857ae" name="Canvas" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
-                  <elementDefinition Id="5450e8c7-8209-4321-9003-c620a87c9350" />
+                <memberEnd Id="2b43c8cc-03ae-4ef8-8e4b-adc13a1202a6" name="Component" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
+                  <lowerValueInternal>
+                    <literalString Id="643207ce-7a48-4699-96c2-f980774d6625" name="Lower" value="M">
+                      <elementDefinition Id="2b87ba9e-18c7-4981-9ed7-5e3c1fa82c8d" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="04912977-05a8-42a4-8af8-3c6aa8313ce9" name="Upper" value="M">
+                      <elementDefinition Id="56a75b36-ac89-46d0-ab2c-7f7679a84778" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="0c2bef2d-ec81-42e0-b44e-2ad616a4fb3b" />
                 </memberEnd>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
-            <elementDefinition Id="55e80f9f-9db7-49f3-be15-2f228871a05e" />
+            <elementDefinition Id="d1d1b458-a8c8-470b-afa2-b4b4f54da930" />
           </association>
         </targetEnds>
         <ownedAttributesInternal>
@@ -358,24 +368,6 @@
     <packageHasNamedElement>
       <referencedType Id="3265f86e-9142-4ad3-96db-b6af13fb461b" name="Point" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::Point">
         <elementDefinition Id="2efa96a6-c87d-4796-a648-7e77f7529606" />
-      </referencedType>
-    </packageHasNamedElement>
-    <logicalClassDesignerModelHasTypes>
-      <class Id="22104a20-1826-4cc0-87f7-16e317eec6d2" name="Project" isAbstract="false" isLeaf="false" isActiveClass="false">
-        <elementDefinition Id="e3733422-792b-453c-a823-2d903f0ca1d1" />
-        <ownedAttributesInternal>
-          <property Id="416bb3c4-dc4e-4d10-8703-48238dc15147" name="canvas" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-            <elementDefinition Id="3a80ff7e-758f-46b0-ad4d-b0ab69989769" />
-            <type_NamedElement>
-              <referencedTypeMoniker Id="8af27e2d-6964-405d-b5b1-6b81f30df7cc" LastKnownName="Canvas" />
-            </type_NamedElement>
-          </property>
-        </ownedAttributesInternal>
-      </class>
-    </logicalClassDesignerModelHasTypes>
-    <packageHasNamedElement>
-      <referencedType Id="8af27e2d-6964-405d-b5b1-6b81f30df7cc" name="Canvas" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::Canvas">
-        <elementDefinition Id="6bc8b62c-6877-402b-875b-9b2e576b83ab" />
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -441,39 +433,24 @@
             <elementDefinition Id="2e77d8b7-f78c-4002-b9c0-fb2c72cbf6ff" />
           </generalization>
         </generalsInternal>
-        <targetEnds>
-          <association Id="e50dbaf6-aa11-4f59-809a-9c8df1c8e0c9" isDerived="false" sourceEndRoleName="Node" targetEndRoleName="Component" isLeaf="false" isAbstract="false">
-            <classMoniker Id="833e840b-08e5-4278-aa14-fe24f44e2841" LastKnownName="Component" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="3f37a23d-9830-401e-9128-5a91a1074cba" name="Node" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString Id="e02974be-356c-40eb-a308-2a2e1baf6d17" name="Lower" value="M">
-                      <elementDefinition Id="34848257-533f-433e-8c1e-83168682941b" />
-                    </literalString>
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString Id="64a14bcd-447a-4b15-bd0c-cdba81a2c5d8" name="Upper" value="M">
-                      <elementDefinition Id="bee3415f-bbe9-4175-8f0e-3f5813875748" />
-                    </literalString>
-                  </upperValueInternal>
-                  <elementDefinition Id="d2f3d1ef-f129-433d-aa41-b588043d3320" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="be66673b-17b8-4f17-8a85-e58a01622aa3" name="Component" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
-                  <elementDefinition Id="a481e22f-c16d-4222-ace5-200a7d733a54" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="629af5cc-7269-4e01-a6c0-a5600d7d65e7" />
-          </association>
-        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="2077062e-0e4f-49de-b840-6c5d70a0e68c" name="ellipse" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="2fd164d2-070f-429b-916c-81a05688aab4" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="98182cc7-a32c-428b-b8b0-e088b294d7cd" LastKnownName="Ellipse" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
       </class>
     </logicalClassDesignerModelHasTypes>
     <packageHasNamedElement>
       <referencedType Id="8aabdcc1-48fd-4dc8-9be0-fb8b5ffa8a50" name="Node" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::Node">
         <elementDefinition Id="ad76621b-3b85-4407-8b45-a12d228ca5af" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="98182cc7-a32c-428b-b8b0-e088b294d7cd" name="Ellipse" isAbstract="false" isLeaf="false" cachedFullName="Ellipse">
+        <elementDefinition Id="de21ec4b-4263-466e-a643-30e955d581ec" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>
