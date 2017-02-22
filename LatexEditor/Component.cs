@@ -16,6 +16,7 @@ namespace LatexEditor
         public string position { get; set; }
         public Component parentCopmonent { get; set; }
         public Canvas mainCanvas { get; set; }
+        public List <LatexNode> nodeList { get; set; }
 
         /// <summary>
         /// Empty constructoor

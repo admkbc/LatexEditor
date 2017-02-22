@@ -100,8 +100,6 @@ namespace LatexEditor
                     LatexPolyline poly = activeComponent as LatexPolyline;
                     poly.UpdatePoint(draggedPoint, new LatexPoint(mousePosition.X, mousePosition.Y, MainCanvas));
                     poly.Draw();
-                    //components.Remove(firstPoint);
-                    //firstPoint = null;
                 }
                 if (activeComponent is LatexPoint)
                 {
@@ -127,7 +125,6 @@ namespace LatexEditor
         private void NodeButton_OnClickButton_Click(object sender, RoutedEventArgs e)
         {
             activeComponent = new LatexPoint(MainCanvas);
-            //components.Add(activeComponent);
         }
 
         private void LineButton_Click(object sender, RoutedEventArgs e)
